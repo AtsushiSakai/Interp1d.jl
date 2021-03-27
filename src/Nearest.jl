@@ -11,9 +11,13 @@ Returns a nearest interpolation function `f(x)` based on interpolated points `xi
 # Examples
 ```jldoctest
 julia> using Interp1d
+
 julia> x = [-1.0, 0.0, 3.0/2.0];
+
 julia> y = [2.0, 1.0, 3.0];
+
 julia> f = interp(x, y, Nearest);
+
 julia> f(1.0)
 3.0
 ```
