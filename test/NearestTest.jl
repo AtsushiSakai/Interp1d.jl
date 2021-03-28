@@ -1,4 +1,5 @@
 using Interp1d
+using Random
 
 @testset "1 input and 1 output test" begin
     x = [-1.0, 0.0, 3.0/2.0]
@@ -37,5 +38,22 @@ end
     y[2] = 10.0
     @test f(0) == 10.0
 end
+
+@testset "sort test" begin
+    x = [-1.0, 0.0, 3.0/2.0]
+    y = [2.0, 1.0, 3.0]
+
+    idxs = randperm(length(x))
+    x=x[idxs]
+    y=y[idxs]
+    f = interp(x, y, Nearest);
+    @test f(1.0) == 3.0
+    @test f(-1.0) == 2.0
+    @test f(-2.0) == 2.0
+    @test f(-Inf) == 2.0
+    @test f(Inf) == 3.0
+    @test f(0) == 1.0
+end
+
 
 
