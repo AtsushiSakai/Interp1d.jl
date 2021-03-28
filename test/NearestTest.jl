@@ -31,9 +31,11 @@ end
     f = interp(x, y, Nearest, copy=true);
     y[2] = 10.0
     @test f(0) == 1.0
+
+    y = [2.0, 1.0, 3.0]
     f = interp(x, y, Nearest, copy=false);
-    y[2] = -10.0
-    @test f(0) == -10.0
+    y[2] = 10.0
+    @test f(0) == 10.0
 end
 
 

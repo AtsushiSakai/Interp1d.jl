@@ -65,6 +65,12 @@ end
 function _prepare_input(xi, yi, copy, bounds_error, assume_sorted)
     _xi, _yi = copy ? (deepcopy(xi), deepcopy(yi)) : (xi, yi)
 
+    if !assume_sorted
+        idxs = sortperm(_xi)
+        _xi = view(_xi, idxs)
+        _yi = ndims(_yi) == 1 ? view(_yi, idxs) : view(_yi, :, idxs)
+    end
+
     return _xi, _yi
 end
 
