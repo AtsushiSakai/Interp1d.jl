@@ -4,10 +4,16 @@ abstract type Nearest <: InterpMode end
 
 
 """
-    interp(xi::Vector{T}, yi::Vector{T}, ::Type{Nearest}) where T
-    interp(xi::Vector{T}, yi::Matrix{T}, ::Type{Nearest}) where T
+    interp(xi::Vector{T}, yi::Vector{T}, ::Type{Nearest}; copy=true, sorted=false) where T
+    interp(xi::Vector{T}, yi::Matrix{T}, ::Type{Nearest}; copy=true, sorted=false) where T
 
 Returns a nearest interpolation function `f(x)` based on interpolated points `xi` and `yi`.
+
+If `xi` has a duplicated value, `ArgumentError` is thrown.
+
+If `copy` is true, this function makes internal copies of `xi` and `yi`, otherwise it uses references.
+
+If `sorted` is false, this function sorts `xi` first, otherwise it assumes `xi` is monotonically increasing. 
 
 # Examples
 This is a simple interpolation example:
@@ -45,8 +51,8 @@ julia> f(0.0)
 
 """
 function interp(xi::Vector{T}, yi::Vector{T}, ::Type{Nearest};
-                copy=true, bounds_error=false, assume_sorted=false) where T
-    _xi, _yi = _prepare_input(xi, yi, copy, bounds_error, assume_sorted)
+                copy=true, sorted=false) where T
+    _xi, _yi = _prepare_input(xi, yi, copy, sorted)
     
     f(x) = _yi[_searchsortednearest(_xi, x)]
         
@@ -54,18 +60,22 @@ function interp(xi::Vector{T}, yi::Vector{T}, ::Type{Nearest};
 end
 
 function interp(xi::Vector{T}, yi::Matrix{T}, ::Type{Nearest};
-                copy=true, bounds_error=false, assume_sorted=false) where T
-    _xi, _yi = _prepare_input(xi, yi, copy, bounds_error, assume_sorted)
+                copy=true, sorted=false) where T
+    _xi, _yi = _prepare_input(xi, yi, copy, sorted)
     
     f(x) = _yi[:, _searchsortednearest(_xi, x)]
         
     return f
 end
 
-function _prepare_input(xi, yi, copy, bounds_error, assume_sorted)
+function _prepare_input(xi, yi, copy, sorted)
+
+    # check duplicate in xi
+    length(xi) != length(unique(xi)) && throw(ArgumentError("xi has duplicated value: $xi"))
+
     _xi, _yi = copy ? (deepcopy(xi), deepcopy(yi)) : (xi, yi)
 
-    if !assume_sorted
+    if !sorted
         idxs = sortperm(_xi)
         _xi = view(_xi, idxs)
         _yi = ndims(_yi) == 1 ? view(_yi, idxs) : view(_yi, :, idxs)

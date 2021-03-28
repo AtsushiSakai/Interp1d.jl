@@ -55,5 +55,11 @@ end
     @test f(0) == 1.0
 end
 
+@testset "duplicated exception test" begin
+    x = [0.0, 0.0, 3.0/2.0]
+    y = [2.0, 1.0, 3.0]
+
+    @test_throws ArgumentError interp(x, y, Nearest);
+end
 
 
