@@ -33,7 +33,7 @@ using Pkg;Pkg.add(url = "https://github.com/AtsushiSakai/Interp1d.jl.git")
 # How to use
 
 You can use many kind of univariate interpolations:
-```jl
+```@example
 using Interp1d
 using PyPlot
 xi = collect(0.0:10.0) # x of interpolated points
