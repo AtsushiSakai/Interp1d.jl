@@ -45,7 +45,7 @@ end
 plot(xi, yi, "xr")
 legend()
 ```
-<p align="left"><img src="docs/src/assets/all_mode_plot_sample.png" alt="drawing" width="200"/></p>
+<p align="left"><img src="docs/src/assets/all_mode_plot_sample.png" alt="drawing" width="500"/></p>
 
 Details and other tips can be found in the latest documentaion:
 
