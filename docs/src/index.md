@@ -2,13 +2,13 @@
 CurrentModule = Interp1d
 ```
 
-# What is this?
-
-Documentation for [Interp1d](https://github.com/AtsushiSakai/Interp1d.jl).
-
 # Interp1d.jl
 
-A Julia package for univariate interpolations. 
+[![Stable](https://img.shields.io/badge/docs-stable-blue.svg)](https://AtsushiSakai.github.io/Interp1d.jl/stable)
+[![Dev](https://img.shields.io/badge/docs-dev-blue.svg)](https://AtsushiSakai.github.io/Interp1d.jl/dev)
+[![Build Status](https://github.com/AtsushiSakai/Interp1d.jl/workflows/CI/badge.svg)](https://github.com/AtsushiSakai/Interp1d.jl/actions)
+
+[Interp1d](https://github.com/AtsushiSakai/Interp1d.jl) is a Julia package for univariate interpolations. 
 
 This package is inspired by [scipy\.interpolate\.interp1d](https://docs.scipy.org/doc/scipy/reference/generated/scipy.interpolate.interp1d.html) function.
 
@@ -48,22 +48,16 @@ for mode in INTERP_MODE_LIST # Do interpolations for all modes.
 end
 plot(xi, yi, "xr")
 legend()
+savefig("all_interpolation_mode.png") # hide
 ```
-<p align="left"><img src="assets/all_mode_plot_sample.png" alt="drawing" width="500"/></p>
 
 Details and other tips can be found in the latest documentaion:
 
 - [Interp1d.jl Documentation](https://AtsushiSakai.github.io/Interp1d.jl/stable)
 
 
-# Author
-
-- [Atsushi Sakai](https://github.com/AtsushiSakai/) ([@Atsushi_twi](https://twitter.com/Atsushi_twi))
-
+# Index
 
 ```@index
 ```
 
-```@autodocs
-Modules = [Interp1d]
-```
