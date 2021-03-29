@@ -46,9 +46,8 @@ for mode in INTERP_MODE_LIST # Do interpolations for all modes.
 end
 plot(xi, yi, "xr")
 legend()
-savefig("all_interpolation_mode.png") # hide
 ```
-![](all_interpolation_mode.png)
+![](src/assets/all_mode_plot_sample.png)
 
 Details and other tips can be found in the latest documentaion:
 
