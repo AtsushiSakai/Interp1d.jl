@@ -1,5 +1,4 @@
 using Interp1d
-using PyPlot # for figure generation
 using Documenter
 
 DocMeta.setdocmeta!(Interp1d, :DocTestSetup, :(using Interp1d); recursive=true)
