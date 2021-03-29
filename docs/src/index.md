@@ -16,15 +16,13 @@ This package is inspired by [scipy\.interpolate\.interp1d](https://docs.scipy.or
 
 Julia 1.6.x or higher.
 
-# Install
+# How to install
 
-<!-- 
 ```jl
 using Pkg;Pkg.add("Interp1d")
 ```
 
 and then just import it with `using Interp1d`.
--->
 
 If you want use latest development version, 
 
@@ -50,6 +48,7 @@ plot(xi, yi, "xr")
 legend()
 savefig("all_interpolation_mode.png") # hide
 ```
+![](all_interpolation_mode.png)
 
 Details and other tips can be found in the latest documentaion:
 
