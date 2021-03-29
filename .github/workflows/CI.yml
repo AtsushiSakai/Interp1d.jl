@@ -43,6 +43,8 @@ jobs:
         with:
           version: '1'
       - run: |
+          pip install matplotlib
+      - run: |
           julia --project=docs -e '
             using Pkg
             Pkg.develop(PackageSpec(path=pwd()))
