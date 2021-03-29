@@ -4,8 +4,7 @@ abstract type Nearest <: InterpMode end
 
 
 """
-    interp(xi::Vector{T}, yi::Vector{T}, ::Type{Nearest}; copy=true, sorted=false) where T
-    interp(xi::Vector{T}, yi::Matrix{T}, ::Type{Nearest}; copy=true, sorted=false) where T
+    interp(xi::Vector{T}, yi::VecOrMat{T}, ::Type{Nearest}; copy=true, sorted=false) where T
 
 Returns a nearest interpolation function `f(x)` based on interpolated points `xi` and `yi`.
 
@@ -50,39 +49,18 @@ julia> f(0.0)
 ```
 
 """
-function interp(xi::Vector{T}, yi::Vector{T}, ::Type{Nearest};
+function interp(xi::Vector{T}, yi::VecOrMat{T}, ::Type{Nearest};
                 copy=true, sorted=false) where T
     _xi, _yi = _prepare_input(xi, yi, copy, sorted)
-    
-    f(x) = _yi[_searchsortednearest(_xi, x)]
-        
-    return f
-end
 
-function interp(xi::Vector{T}, yi::Matrix{T}, ::Type{Nearest};
-                copy=true, sorted=false) where T
-    _xi, _yi = _prepare_input(xi, yi, copy, sorted)
-    
-    f(x) = _yi[:, _searchsortednearest(_xi, x)]
-        
-    return f
-end
-
-function _prepare_input(xi, yi, copy, sorted)
-
-    # check duplicate in xi
-    length(xi) != length(unique(xi)) && throw(ArgumentError("xi has duplicated value: $xi"))
-
-    _xi, _yi = copy ? (deepcopy(xi), deepcopy(yi)) : (xi, yi)
-
-    if !sorted
-        idxs = sortperm(_xi)
-        _xi = view(_xi, idxs)
-        _yi = ndims(_yi) == 1 ? view(_yi, idxs) : view(_yi, :, idxs)
+    function f(x)
+        idx = _searchsortednearest(_xi, x)
+        return ndims(_yi) == 1 ? _yi[idx] : _yi[:, idx]
     end
-
-    return _xi, _yi
+        
+    return f
 end
+
 
 function _searchsortednearest(a,x)
    idx = searchsortedfirst(a,x)
