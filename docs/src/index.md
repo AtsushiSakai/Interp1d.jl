@@ -47,7 +47,7 @@ end
 plot(xi, yi, "xr")
 legend()
 ```
-![](src/assets/all_mode_plot_sample.png)
+![asll_mode_plot_sample](./assets/all_mode_plot_sample.png)
 
 Details and other tips can be found in the latest documentaion:
 
